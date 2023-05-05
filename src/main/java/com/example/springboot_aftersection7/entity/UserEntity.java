@@ -1,12 +1,15 @@
 package com.example.springboot_aftersection7.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Table(name="users")
+import java.util.List;
+
+@Table(name = "users")
 @Getter
 @Setter
 @AllArgsConstructor
@@ -33,5 +36,17 @@ public class UserEntity {
 
     @Column(name = "is_active")
     private Integer isActive;
+
+    @JsonManagedReference
+    @OneToOne(mappedBy = "userEntity")
+    private UserAddressEntity userAddressEntity;
+
+    @JsonManagedReference
+    @OneToMany(mappedBy = "userEntity")
+    private List<UserNotesEntity> userNotesEntities;
+
+    @JsonManagedReference
+    @OneToMany(mappedBy = "userEntity")
+    private List<UserCoursesEntity> userCourses;
 
 }
